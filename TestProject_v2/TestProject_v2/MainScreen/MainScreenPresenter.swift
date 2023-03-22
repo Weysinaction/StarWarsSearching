@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+class MainScreenPresenter {
+    var model: MainScreenModel?
+    weak var viewController: MainScreenViewController?
+}

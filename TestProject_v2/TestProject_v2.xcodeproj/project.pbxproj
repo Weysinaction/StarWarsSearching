@@ -18,11 +18,21 @@
 		018B9B7429CB2EBA00894B5E /* TestProject_v2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B7329CB2EBA00894B5E /* TestProject_v2UITestsLaunchTests.swift */; };
 		018B9B8329CB2F0A00894B5E /* FavoritesScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8229CB2F0A00894B5E /* FavoritesScreenPresenter.swift */; };
 		018B9B8529CB2F1700894B5E /* FavoritesScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8429CB2F1700894B5E /* FavoritesScreenModel.swift */; };
-		018B9B8729CB2F3B00894B5E /* FavoritesScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8629CB2F3B00894B5E /* FavoritesScreenView.swift */; };
+		018B9B8729CB2F3B00894B5E /* FavoritesScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8629CB2F3B00894B5E /* FavoritesScreenViewController.swift */; };
 		018B9B8929CB2FBE00894B5E /* MainScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8829CB2FBE00894B5E /* MainScreenPresenter.swift */; };
 		018B9B8B29CB2FCB00894B5E /* MainScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8A29CB2FCB00894B5E /* MainScreenModel.swift */; };
-		018B9B8D29CB2FE000894B5E /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8C29CB2FE000894B5E /* MainScreenView.swift */; };
 		018B9B9029CB300A00894B5E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8F29CB300A00894B5E /* NetworkManager.swift */; };
+		018B9B9229CB362600894B5E /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B9129CB362600894B5E /* MainScreenViewController.swift */; };
+		018B9B9429CB39FB00894B5E /* MainScreenModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B9329CB39FB00894B5E /* MainScreenModule.swift */; };
+		018B9B9629CB3A0800894B5E /* FavoritesScreenModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B9529CB3A0800894B5E /* FavoritesScreenModule.swift */; };
+		018B9B9829CB69FD00894B5E /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B9729CB69FD00894B5E /* PersonCell.swift */; };
+		018B9B9B29CB724900894B5E /* StarshipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B9A29CB724900894B5E /* StarshipCell.swift */; };
+		018B9B9E29CB807B00894B5E /* abosanova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9B9D29CB807B00894B5E /* abosanova.ttf */; };
+		018B9B9F29CB807B00894B5E /* abosanova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9B9D29CB807B00894B5E /* abosanova.ttf */; };
+		018B9BA029CB807B00894B5E /* abosanova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9B9D29CB807B00894B5E /* abosanova.ttf */; };
+		018B9BA229CB809200894B5E /* abosanovabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9BA129CB809200894B5E /* abosanovabold.ttf */; };
+		018B9BA329CB809200894B5E /* abosanovabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9BA129CB809200894B5E /* abosanovabold.ttf */; };
+		018B9BA429CB809200894B5E /* abosanovabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9BA129CB809200894B5E /* abosanovabold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,11 +68,17 @@
 		018B9B7329CB2EBA00894B5E /* TestProject_v2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProject_v2UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		018B9B8229CB2F0A00894B5E /* FavoritesScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesScreenPresenter.swift; sourceTree = "<group>"; };
 		018B9B8429CB2F1700894B5E /* FavoritesScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesScreenModel.swift; sourceTree = "<group>"; };
-		018B9B8629CB2F3B00894B5E /* FavoritesScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesScreenView.swift; sourceTree = "<group>"; };
+		018B9B8629CB2F3B00894B5E /* FavoritesScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesScreenViewController.swift; sourceTree = "<group>"; };
 		018B9B8829CB2FBE00894B5E /* MainScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenPresenter.swift; sourceTree = "<group>"; };
 		018B9B8A29CB2FCB00894B5E /* MainScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
-		018B9B8C29CB2FE000894B5E /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		018B9B8F29CB300A00894B5E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		018B9B9129CB362600894B5E /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		018B9B9329CB39FB00894B5E /* MainScreenModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenModule.swift; sourceTree = "<group>"; };
+		018B9B9529CB3A0800894B5E /* FavoritesScreenModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesScreenModule.swift; sourceTree = "<group>"; };
+		018B9B9729CB69FD00894B5E /* PersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
+		018B9B9A29CB724900894B5E /* StarshipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipCell.swift; sourceTree = "<group>"; };
+		018B9B9D29CB807B00894B5E /* abosanova.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = abosanova.ttf; sourceTree = "<group>"; };
+		018B9BA129CB809200894B5E /* abosanovabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = abosanovabold.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +132,7 @@
 				018B9B8E29CB2FF200894B5E /* NetworkLayer */,
 				018B9B8129CB2EE400894B5E /* FavoritesScreen */,
 				018B9B8029CB2ECC00894B5E /* MainScreen */,
+				018B9B9C29CB804500894B5E /* Fonts */,
 				018B9B5029CB2EB900894B5E /* AppDelegate.swift */,
 				018B9B5229CB2EB900894B5E /* SceneDelegate.swift */,
 				018B9B5429CB2EB900894B5E /* ViewController.swift */,
@@ -147,9 +164,11 @@
 		018B9B8029CB2ECC00894B5E /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
-				018B9B8829CB2FBE00894B5E /* MainScreenPresenter.swift */,
+				018B9B9329CB39FB00894B5E /* MainScreenModule.swift */,
 				018B9B8A29CB2FCB00894B5E /* MainScreenModel.swift */,
-				018B9B8C29CB2FE000894B5E /* MainScreenView.swift */,
+				018B9B8829CB2FBE00894B5E /* MainScreenPresenter.swift */,
+				018B9B9129CB362600894B5E /* MainScreenViewController.swift */,
+				018B9B9929CB6A0900894B5E /* Cells */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -157,9 +176,10 @@
 		018B9B8129CB2EE400894B5E /* FavoritesScreen */ = {
 			isa = PBXGroup;
 			children = (
-				018B9B8229CB2F0A00894B5E /* FavoritesScreenPresenter.swift */,
+				018B9B9529CB3A0800894B5E /* FavoritesScreenModule.swift */,
 				018B9B8429CB2F1700894B5E /* FavoritesScreenModel.swift */,
-				018B9B8629CB2F3B00894B5E /* FavoritesScreenView.swift */,
+				018B9B8229CB2F0A00894B5E /* FavoritesScreenPresenter.swift */,
+				018B9B8629CB2F3B00894B5E /* FavoritesScreenViewController.swift */,
 			);
 			path = FavoritesScreen;
 			sourceTree = "<group>";
@@ -170,6 +190,24 @@
 				018B9B8F29CB300A00894B5E /* NetworkManager.swift */,
 			);
 			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		018B9B9929CB6A0900894B5E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				018B9B9729CB69FD00894B5E /* PersonCell.swift */,
+				018B9B9A29CB724900894B5E /* StarshipCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		018B9B9C29CB804500894B5E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				018B9BA129CB809200894B5E /* abosanovabold.ttf */,
+				018B9B9D29CB807B00894B5E /* abosanova.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +317,8 @@
 				018B9B5D29CB2EBA00894B5E /* LaunchScreen.storyboard in Resources */,
 				018B9B5A29CB2EBA00894B5E /* Assets.xcassets in Resources */,
 				018B9B5829CB2EB900894B5E /* Main.storyboard in Resources */,
+				018B9BA229CB809200894B5E /* abosanovabold.ttf in Resources */,
+				018B9B9E29CB807B00894B5E /* abosanova.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +326,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				018B9BA329CB809200894B5E /* abosanovabold.ttf in Resources */,
+				018B9B9F29CB807B00894B5E /* abosanova.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +335,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				018B9BA429CB809200894B5E /* abosanovabold.ttf in Resources */,
+				018B9BA029CB807B00894B5E /* abosanova.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,13 +348,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				018B9B5529CB2EB900894B5E /* ViewController.swift in Sources */,
+				018B9B9B29CB724900894B5E /* StarshipCell.swift in Sources */,
 				018B9B8529CB2F1700894B5E /* FavoritesScreenModel.swift in Sources */,
 				018B9B9029CB300A00894B5E /* NetworkManager.swift in Sources */,
 				018B9B8929CB2FBE00894B5E /* MainScreenPresenter.swift in Sources */,
+				018B9B9229CB362600894B5E /* MainScreenViewController.swift in Sources */,
 				018B9B8329CB2F0A00894B5E /* FavoritesScreenPresenter.swift in Sources */,
-				018B9B8D29CB2FE000894B5E /* MainScreenView.swift in Sources */,
 				018B9B5129CB2EB900894B5E /* AppDelegate.swift in Sources */,
-				018B9B8729CB2F3B00894B5E /* FavoritesScreenView.swift in Sources */,
+				018B9B9629CB3A0800894B5E /* FavoritesScreenModule.swift in Sources */,
+				018B9B8729CB2F3B00894B5E /* FavoritesScreenViewController.swift in Sources */,
+				018B9B9829CB69FD00894B5E /* PersonCell.swift in Sources */,
+				018B9B9429CB39FB00894B5E /* MainScreenModule.swift in Sources */,
 				018B9B8B29CB2FCB00894B5E /* MainScreenModel.swift in Sources */,
 				018B9B5329CB2EB900894B5E /* SceneDelegate.swift in Sources */,
 			);
