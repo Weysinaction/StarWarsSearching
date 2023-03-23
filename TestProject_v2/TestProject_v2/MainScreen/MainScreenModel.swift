@@ -8,5 +8,46 @@
 import Foundation
 
 class MainScreenModel {
+    var peoples: [Person]?
+    var starships: [Starship]?
     
+}
+
+class Person {
+    var people: PeopleDto?
+    var isFavorite: Bool? = false
+}
+
+class Starship {
+    var starship: StarshipDto?
+    var isFavorite: Bool? = false
+}
+
+//MARK: Dto
+class PeoplesDto {
+    var count: Int?
+    var next: String?
+    var previous: String?
+    var results: [PeopleDto]?
+}
+
+class PeopleDto {
+    var name: String?
+    var gender: String?
+    var films: [String]?
+    var starships: [String]?
+}
+
+class StarshipsDto {
+    var count: Int?
+    var next: String?
+    var previous: String?
+    var results: [StarshipDto]?
+}
+
+class StarshipDto {
+    var name: String?
+    var model: String?
+    var manufacturer: String?
+    var passengers: Int?
 }

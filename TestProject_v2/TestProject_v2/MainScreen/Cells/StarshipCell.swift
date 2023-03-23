@@ -10,11 +10,12 @@ import UIKit
 class StarshipCell: UITableViewCell {
     var starshipLabel: UILabel?
     var cellImageView: UIImageView?
+    var favoriteButton: UIButton?
     var namePlaceholderLabel: UILabel?
     var modelPlaceholderLabel: UILabel?
     var manufacturerPlaceholderLabel: UILabel?
     var passengersPlaceholderLabel: UILabel?
-    
+    var flag = true
     var nameLabel: UILabel?
     var modelLabel: UILabel?
     var manufacturerLabel: UILabel?
@@ -28,8 +29,14 @@ class StarshipCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         setupImageView()
         setupLabels()
+        setupButtons()
     }
     
+    override func prepareForReuse() {
+        flag = true
+    }
+    
+    //MARK: Setup Methods
     func setupLabels() {
         let starshipLabel = UILabel()
         addSubview(starshipLabel)
@@ -130,5 +137,40 @@ class StarshipCell: UITableViewCell {
         cellImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
         cellImageView.contentMode = .scaleToFill
         self.cellImageView = cellImageView
+    }
+    
+    func setupButtons() {
+        let favoriteImage = UIImage(named: "heart")
+        let favoriteImagePressed = UIImage(named: "blackHeart")
+        let favoriteButton = UIButton(frame: .zero)
+        if flag {
+            favoriteButton.setImage(favoriteImage, for: .normal)
+        } else {
+            favoriteButton.setImage(favoriteImagePressed, for: .normal)
+        }
+        addSubview(favoriteButton)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 7).isActive = true
+        favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        favoriteButton.backgroundColor = .clear
+        favoriteButton.contentMode = .scaleToFill
+        favoriteButton.isUserInteractionEnabled = true
+        favoriteButton.addTarget(self, action: #selector(toggleFavoriteButton), for: .touchDown)
+        self.favoriteButton = favoriteButton
+    }
+
+    
+    //MARK: Selectors
+    @objc func toggleFavoriteButton(sender: UIButton) {
+        let favoriteImage = UIImage(named: "heart")
+        let favoriteImagePressed = UIImage(named: "blackHeart")
+        if flag {
+            favoriteButton?.setImage(favoriteImagePressed, for: .normal)
+        } else {
+            favoriteButton?.setImage(favoriteImage, for: .normal)
+        }
+        flag = !flag
     }
 }

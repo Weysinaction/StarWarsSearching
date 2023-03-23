@@ -24,6 +24,7 @@ class MainScreenViewController: UIViewController {
         title = "MainScreen"
         self.view.backgroundColor = .white
         
+        presenter?.getPeoples()
         setupTabBar()
         setupSearchBar()
         setupTableView()
@@ -42,7 +43,7 @@ class MainScreenViewController: UIViewController {
         tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PersonCell.self, forCellReuseIdentifier: personCellIdentifier)
@@ -68,15 +69,17 @@ class MainScreenViewController: UIViewController {
 //MARK: -UITableViewDataSource, UITableViewDelegate
 extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        15
+        let peoplesCount = presenter?.model?.peoples?.count ?? 0
+        let starshipsCount = presenter?.model?.starships?.count ?? 0
+        return peoplesCount + starshipsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        let number = indexPath.row % 2
-        switch number {
-            case 0: cell = tableView.dequeueReusableCell(withIdentifier: starshipCellIdentifier, for: indexPath)
-            default: cell = tableView.dequeueReusableCell(withIdentifier: personCellIdentifier, for: indexPath)
+        if indexPath.row < presenter?.model?.peoples?.count ?? 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: starshipCellIdentifier, for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: personCellIdentifier, for: indexPath)
         }
         return cell
     }

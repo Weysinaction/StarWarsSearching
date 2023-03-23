@@ -8,7 +8,9 @@
 import UIKit
 
 class PersonCell: UITableViewCell {
+    var backView: UIView?
     var cellImageView: UIImageView?
+    var favoriteButton: UIButton?
     var personLabel: UILabel?
     var namePlaceholderLabel: UILabel?
     var sexPlaceholderLabel: UILabel?
@@ -16,6 +18,7 @@ class PersonCell: UITableViewCell {
     var nameLabel: UILabel?
     var sexLabel: UILabel?
     var countOfStarshipsLabel: UILabel?
+    var flag = true
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +26,27 @@ class PersonCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        setupImageView()
+        setupCell()
+    }
+    
+    func setupCell() {
+        //setupBackgroundView()
+        setupImageViews()
         setupLabels()
+        setupButtons()
+    }
+    
+    func setupBackgroundView() {
+        let backView = UIView()
+        addSubview(backView)
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        backView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        backView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
+        backView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
+        backView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        backView.layer.cornerRadius = 12
+        backView.backgroundColor = .white
+        self.backView = backView
     }
     
     func setupLabels() {
@@ -97,7 +119,7 @@ class PersonCell: UITableViewCell {
         self.countOfStarshipsLabel = countOfStarshipsLabel
     }
     
-    func setupImageView() {
+    func setupImageViews() {
         let image = UIImage(named: "person")
         let cellImageView = UIImageView(image: image)
         addSubview(cellImageView)
@@ -109,5 +131,36 @@ class PersonCell: UITableViewCell {
         cellImageView.contentMode = .scaleToFill
         self.cellImageView = cellImageView
     }
+    
+    func setupButtons() {
+        let favoriteImage = UIImage(named: "heart")
+        let favoriteImagePressed = UIImage(named: "blackHeart")
+        let favoriteButton = UIButton(frame: .zero)
+        favoriteButton.setImage(favoriteImage, for: .normal)
+        //favoriteImageView.setImage(favoriteImage, for: .selected)
+        addSubview(favoriteButton)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 7).isActive = true
+        favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        favoriteButton.backgroundColor = .clear
+        favoriteButton.contentMode = .scaleToFill
+        favoriteButton.isUserInteractionEnabled = true
+        favoriteButton.addTarget(self, action: #selector(toggleFavoriteButton), for: .touchDown)
+        self.favoriteButton = favoriteButton
+    }
 
+    
+    //MARK: Selectors
+    @objc func toggleFavoriteButton(sender: UIButton) {
+        let favoriteImage = UIImage(named: "heart")
+        let favoriteImagePressed = UIImage(named: "blackHeart")
+        if flag {
+            favoriteButton?.setImage(favoriteImagePressed, for: .normal)
+        } else {
+            favoriteButton?.setImage(favoriteImage, for: .normal)
+        }
+        flag = !flag
+    }
 }
