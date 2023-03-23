@@ -20,9 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let mainScreen = MainScreenModule.build()
         let favoritesScreen = FavoritesScreenModule.build()
+        let favoriteNavigationController = UINavigationController(rootViewController: favoritesScreen)
         let tabBarViewController = UITabBarController();
-        
-        tabBarViewController.setViewControllers([mainScreen,favoritesScreen], animated: true)
+        tabBarViewController.tabBar.tintColor = .black
+        tabBarViewController.setViewControllers([mainScreen,favoriteNavigationController], animated: true)
+        favoritesScreen.loadViewIfNeeded()
         window?.rootViewController = tabBarViewController
     }
 

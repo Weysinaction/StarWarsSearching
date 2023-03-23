@@ -56,7 +56,7 @@ class EntityCell: UITableViewCell {
         titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: cellImageView?.trailingAnchor ?? self.leadingAnchor, constant: 5).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        //titleLabel.text = "Starship"
+        titleLabel.text = "Starship"
         titleLabel.font = UIFont(name: "abosanova", size: 19)
         titleLabel.textColor = .systemGray
         self.titleLabel = titleLabel
@@ -67,7 +67,7 @@ class EntityCell: UITableViewCell {
         firstLinePlaceholderLabel.topAnchor.constraint(equalTo: cellImageView?.bottomAnchor ?? self.topAnchor, constant: 5).isActive = true
         firstLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         firstLinePlaceholderLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //firstLinePlaceholderLabel.text = "Name:"
+        firstLinePlaceholderLabel.text = "Name:"
         firstLinePlaceholderLabel.textColor = .systemGray
         self.firstLinePlaceholderLabel = firstLinePlaceholderLabel
         
@@ -77,7 +77,7 @@ class EntityCell: UITableViewCell {
         secondLinePlaceholderLabel.topAnchor.constraint(equalTo: firstLinePlaceholderLabel.bottomAnchor, constant: 5).isActive = true
         secondLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         secondLinePlaceholderLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //secondLinePlaceholderLabel.text = "Model:"
+        secondLinePlaceholderLabel.text = "Model:"
         secondLinePlaceholderLabel.textColor = .systemGray
         self.secondLinePlaceholderLabel = secondLinePlaceholderLabel
         
@@ -87,7 +87,7 @@ class EntityCell: UITableViewCell {
         thirdLinePlaceholderLabel.topAnchor.constraint(equalTo: secondLinePlaceholderLabel.bottomAnchor, constant: 5).isActive = true
         thirdLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         thirdLinePlaceholderLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //thirdLinePlaceholderLabel.text = "Manufacturer:"
+        thirdLinePlaceholderLabel.text = "Manufacturer:"
         thirdLinePlaceholderLabel.textColor = .systemGray
         self.thirLinePlaceholderLabel = thirdLinePlaceholderLabel
         
@@ -97,7 +97,7 @@ class EntityCell: UITableViewCell {
         fourthLinePlaceholderLabel.topAnchor.constraint(equalTo: thirdLinePlaceholderLabel.bottomAnchor, constant: 5).isActive = true
         fourthLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         fourthLinePlaceholderLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //fourthLinePlaceholderLabel.text = "Passengers:"
+        fourthLinePlaceholderLabel.text = "Passengers:"
         fourthLinePlaceholderLabel.textColor = .systemGray
         self.fourthLinePlaceholderLabel = fourthLinePlaceholderLabel
         
@@ -107,7 +107,6 @@ class EntityCell: UITableViewCell {
         firstLineLabel.topAnchor.constraint(equalTo: firstLinePlaceholderLabel.topAnchor).isActive = true
         firstLineLabel.leadingAnchor.constraint(equalTo: firstLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         firstLineLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //firstLineLabel.text = "Millennium Falcon"
         self.firstLineLabel = firstLineLabel
         
         let secondLineLabel = UILabel()
@@ -116,7 +115,6 @@ class EntityCell: UITableViewCell {
         secondLineLabel.topAnchor.constraint(equalTo: firstLineLabel.bottomAnchor, constant: 5).isActive = true
         secondLineLabel.leadingAnchor.constraint(equalTo: secondLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         secondLineLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //secondLineLabel.text = "YT-1300 light freighter"
         self.secondLineLabel = secondLineLabel
         
         let thirdLineLabel = UILabel()
@@ -125,7 +123,6 @@ class EntityCell: UITableViewCell {
         thirdLineLabel.topAnchor.constraint(equalTo: secondLineLabel.bottomAnchor, constant: 5).isActive = true
         thirdLineLabel.leadingAnchor.constraint(equalTo: thirdLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         thirdLineLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //thirdLineLabel.text = "Corellian Engineering Corporation"
         self.thirdLineLabel = thirdLineLabel
         
         let fourthLineLabel = UILabel()
@@ -134,7 +131,6 @@ class EntityCell: UITableViewCell {
         fourthLineLabel.topAnchor.constraint(equalTo: thirdLineLabel.bottomAnchor, constant: 5).isActive = true
         fourthLineLabel.leadingAnchor.constraint(equalTo: fourthLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         fourthLineLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //fourthLineLabel.text = "6"
         self.fourthLineLabel = fourthLineLabel
     }
     
@@ -197,14 +193,6 @@ class EntityCell: UITableViewCell {
             titleLabel?.text = "Person"
             fourthLineLabel?.isHidden = true
             fourthLinePlaceholderLabel?.isHidden = true
-        } else if entity.entityType == .starship {
-            firstLinePlaceholderLabel?.text = "Name:"
-            secondLinePlaceholderLabel?.text = "Model:"
-            thirLinePlaceholderLabel?.text = "Manufacturer:"
-            fourthLinePlaceholderLabel?.text = "Passengers:"
-            titleLabel?.text = "Starship"
-            fourthLineLabel?.isHidden = false
-            fourthLinePlaceholderLabel?.isHidden = false
         }
         if isFavorite {
             let favoriteImage = UIImage(named: "blackHeart")

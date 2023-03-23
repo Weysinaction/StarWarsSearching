@@ -31,7 +31,8 @@ class MainScreenViewController: UIViewController {
     
     func setupTabBar() {
         //let searchImage = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
-        tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        let tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        self.tabBarItem = tabBarItem
     }
     
     func setupTableView() {
