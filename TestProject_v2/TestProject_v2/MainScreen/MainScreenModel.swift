@@ -7,7 +7,17 @@
 
 import Foundation
 
+enum EntityType {
+    case person
+    case starship
+}
+
 protocol MainScreenModelProtocol {
+    var firstLine: String? { get set }
+    var secondLine: String? { get set }
+    var thirdLine: String? { get set }
+    var fourthLine: String? { get set }
+    var entityType: EntityType? { get set }
     var isFavorite: Bool? { get set }
 }
 
@@ -16,14 +26,13 @@ class MainScreenModel {
     
 }
 
-class Person: MainScreenModelProtocol {
-    var people: PeopleDto?
+class Entity: MainScreenModelProtocol {
+    var firstLine: String?
+    var secondLine: String?
+    var thirdLine: String?
+    var fourthLine: String?
     var isFavorite: Bool? = false
-}
-
-class Starship: MainScreenModelProtocol {
-    var starship: StarshipDto?
-    var isFavorite: Bool? = false
+    var entityType: EntityType?
 }
 
 //MARK: Dto

@@ -11,8 +11,7 @@ class MainScreenViewController: UIViewController {
     var presenter: MainScreenPresenter?
     var searchBar: UISearchBar?
     var tableView: UITableView?
-    let personCellIdentifier = "PersonCell"
-    let starshipCellIdentifier = "StarshipCell"
+    let entityCellId = "EntityCell"
 
     // MARK: MainScreenViewController
     override func viewDidLoad() {
@@ -46,8 +45,7 @@ class MainScreenViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PersonCell.self, forCellReuseIdentifier: personCellIdentifier)
-        tableView.register(StarshipCell.self, forCellReuseIdentifier: starshipCellIdentifier)
+        tableView.register(EntityCell.self, forCellReuseIdentifier: entityCellId)
         self.tableView = tableView
     }
     
@@ -73,23 +71,18 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        if let person = presenter?.model?.models?[indexPath.row] as? Person,
-           let cell = tableView.dequeueReusableCell(withIdentifier: personCellIdentifier, for: indexPath) as? PersonCell {
-            cell.updateCell(person: person)
-            return cell
-        } else if let starship = presenter?.model?.models?[indexPath.row] as? Starship,
-           let cell = tableView.dequeueReusableCell(withIdentifier: starshipCellIdentifier, for: indexPath) as? StarshipCell {
-            cell.updateCell(starship: starship)
-            return cell
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: entityCellId, for: indexPath) as? EntityCell,
+              let entity = presenter?.model?.models?[indexPath.row] else { return UITableViewCell() }
+        cell.updateCell(entity: entity)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let person = presenter?.model?.models?[indexPath.row] as? Person {
+        guard let entity = presenter?.model?.models?[indexPath.row] else { return 0 }
+        if entity.entityType == .person {
            return 120
-        } else if let starship = presenter?.model?.models?[indexPath.row] as? Starship {
+        } else if entity.entityType == .starship  {
            return 150
         }
         return 0
