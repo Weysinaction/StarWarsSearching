@@ -7,18 +7,21 @@
 
 import Foundation
 
+protocol MainScreenModelProtocol {
+    var isFavorite: Bool? { get set }
+}
+
 class MainScreenModel {
-    var peoples: [Person]?
-    var starships: [Starship]?
+    var models: [MainScreenModelProtocol]?
     
 }
 
-class Person {
+class Person: MainScreenModelProtocol {
     var people: PeopleDto?
     var isFavorite: Bool? = false
 }
 
-class Starship {
+class Starship: MainScreenModelProtocol {
     var starship: StarshipDto?
     var isFavorite: Bool? = false
 }

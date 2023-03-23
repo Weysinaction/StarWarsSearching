@@ -18,7 +18,7 @@ class PersonCell: UITableViewCell {
     var nameLabel: UILabel?
     var sexLabel: UILabel?
     var countOfStarshipsLabel: UILabel?
-    var flag = true
+    var flag = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +27,14 @@ class PersonCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         setupCell()
+    }
+    
+    override func prepareForReuse() {
+        nameLabel?.text = ""
+        sexLabel?.text = ""
+        countOfStarshipsLabel?.text = ""
+        flag = false
+        favoriteButton?.setImage(UIImage(), for: .normal)
     }
     
     func setupCell() {
@@ -97,7 +105,6 @@ class PersonCell: UITableViewCell {
         nameLabel.topAnchor.constraint(equalTo: namePlaceholderLabel.topAnchor).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: namePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        nameLabel.text = "Luke Skywalker"
         self.nameLabel = nameLabel
         
         let sexLabel = UILabel()
@@ -106,7 +113,6 @@ class PersonCell: UITableViewCell {
         sexLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
         sexLabel.leadingAnchor.constraint(equalTo: sexPlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         sexLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        sexLabel.text = "Male"
         self.sexLabel = sexLabel
         
         let countOfStarshipsLabel = UILabel()
@@ -115,7 +121,6 @@ class PersonCell: UITableViewCell {
         countOfStarshipsLabel.topAnchor.constraint(equalTo: sexLabel.bottomAnchor, constant: 5).isActive = true
         countOfStarshipsLabel.leadingAnchor.constraint(equalTo: countOfStarshipsPlaceholderLabel.trailingAnchor, constant: 5).isActive = true
         countOfStarshipsLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        countOfStarshipsLabel.text = "10"
         self.countOfStarshipsLabel = countOfStarshipsLabel
     }
     
@@ -137,7 +142,6 @@ class PersonCell: UITableViewCell {
         let favoriteImagePressed = UIImage(named: "blackHeart")
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.setImage(favoriteImage, for: .normal)
-        //favoriteImageView.setImage(favoriteImage, for: .selected)
         addSubview(favoriteButton)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 7).isActive = true
@@ -147,13 +151,11 @@ class PersonCell: UITableViewCell {
         favoriteButton.backgroundColor = .clear
         favoriteButton.contentMode = .scaleToFill
         favoriteButton.isUserInteractionEnabled = true
-        favoriteButton.addTarget(self, action: #selector(toggleFavoriteButton), for: .touchDown)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchDown)
         self.favoriteButton = favoriteButton
     }
 
-    
-    //MARK: Selectors
-    @objc func toggleFavoriteButton(sender: UIButton) {
+    func toggleFavorite() {
         let favoriteImage = UIImage(named: "heart")
         let favoriteImagePressed = UIImage(named: "blackHeart")
         if flag {
@@ -162,5 +164,20 @@ class PersonCell: UITableViewCell {
             favoriteButton?.setImage(favoriteImage, for: .normal)
         }
         flag = !flag
+    }
+    
+    //MARK: Selectors
+    @objc func favoriteButtonPressed(sender: UIButton) {
+        toggleFavorite()
+    }
+    
+    func updateCell(person: Person) {
+        nameLabel?.text = person.people?.name
+        sexLabel?.text = person.people?.gender
+        countOfStarshipsLabel?.text = String(describing: person.people?.starships?.count)
+        if let favoriteFlag = person.isFavorite,
+        favoriteFlag {
+            toggleFavorite()
+        }
     }
 }

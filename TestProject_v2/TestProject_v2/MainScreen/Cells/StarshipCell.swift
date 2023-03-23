@@ -15,7 +15,7 @@ class StarshipCell: UITableViewCell {
     var modelPlaceholderLabel: UILabel?
     var manufacturerPlaceholderLabel: UILabel?
     var passengersPlaceholderLabel: UILabel?
-    var flag = true
+    var isFavorite = false
     var nameLabel: UILabel?
     var modelLabel: UILabel?
     var manufacturerLabel: UILabel?
@@ -33,7 +33,12 @@ class StarshipCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        flag = true
+        nameLabel?.text = ""
+        modelLabel?.text = ""
+        manufacturerLabel?.text = ""
+        passengersLabel?.text = ""
+        isFavorite = false
+        favoriteButton?.setImage(UIImage(), for: .normal)
     }
     
     //MARK: Setup Methods
@@ -143,11 +148,7 @@ class StarshipCell: UITableViewCell {
         let favoriteImage = UIImage(named: "heart")
         let favoriteImagePressed = UIImage(named: "blackHeart")
         let favoriteButton = UIButton(frame: .zero)
-        if flag {
-            favoriteButton.setImage(favoriteImage, for: .normal)
-        } else {
-            favoriteButton.setImage(favoriteImagePressed, for: .normal)
-        }
+        favoriteButton.setImage(favoriteImage, for: .normal)
         addSubview(favoriteButton)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 7).isActive = true
@@ -157,20 +158,39 @@ class StarshipCell: UITableViewCell {
         favoriteButton.backgroundColor = .clear
         favoriteButton.contentMode = .scaleToFill
         favoriteButton.isUserInteractionEnabled = true
-        favoriteButton.addTarget(self, action: #selector(toggleFavoriteButton), for: .touchDown)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchDown)
         self.favoriteButton = favoriteButton
     }
 
-    
-    //MARK: Selectors
-    @objc func toggleFavoriteButton(sender: UIButton) {
+    func toggleFavorite() {
         let favoriteImage = UIImage(named: "heart")
         let favoriteImagePressed = UIImage(named: "blackHeart")
-        if flag {
-            favoriteButton?.setImage(favoriteImagePressed, for: .normal)
-        } else {
-            favoriteButton?.setImage(favoriteImage, for: .normal)
+        isFavorite = !isFavorite
+        switch isFavorite {
+        case true: favoriteButton?.setImage(favoriteImagePressed, for: .normal)
+        case false: favoriteButton?.setImage(favoriteImage, for: .normal)
         }
-        flag = !flag
+    }
+    
+    //MARK: Selectors
+    @objc func favoriteButtonPressed(sender: UIButton) {
+        toggleFavorite()
+    }
+    
+    func updateCell(starship: Starship) {
+        nameLabel?.text = starship.starship?.name
+        modelLabel?.text = starship.starship?.model
+        manufacturerLabel?.text = starship.starship?.manufacturer
+        passengersLabel?.text = String(describing: starship.starship?.passengers)
+        guard let favoriteFlag = starship.isFavorite else { return }
+        let favoriteImage = UIImage(named: "heart")
+        let favoriteImagePressed = UIImage(named: "blackHeart")
+        switch favoriteFlag {
+        case true: favoriteButton?.setImage(favoriteImagePressed, for: .normal)
+        case false: favoriteButton?.setImage(favoriteImage, for: .normal)
+        }
+        isFavorite = favoriteFlag
+        
+        
     }
 }

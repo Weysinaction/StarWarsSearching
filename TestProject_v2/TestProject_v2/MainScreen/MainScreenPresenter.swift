@@ -13,31 +13,29 @@ class MainScreenPresenter {
     weak var viewController: MainScreenViewController?
     
     func getPeoples() {
-        var mainModel = MainScreenModel()
+        let mainModel = MainScreenModel()
+        var protocolArray = [MainScreenModelProtocol]()
         
-        var peopleArray = [Person]()
-        var starshipArray = [Starship]()
+        let person = Person()
+        let person2 = Person()
+        let starship = Starship()
+        let starship2 = Starship()
         
-        var person = Person()
-        var person2 = Person()
-        var starship = Starship()
-        var starship2 = Starship()
-        
-        var peopleDto = PeopleDto()
+        let peopleDto = PeopleDto()
         peopleDto.name = "Luke SkyWalker"
         peopleDto.gender = "Male"
         
-        var peopleDto2 = PeopleDto()
+        let peopleDto2 = PeopleDto()
         peopleDto2.name = "Darth Vader"
         peopleDto2.gender = "Male"
         
-        var starshipDto = StarshipDto()
+        let starshipDto = StarshipDto()
         starshipDto.name = "Millennium Falcon"
         starshipDto.manufacturer = "Corellian Engineering Corporation"
         starshipDto.model = "YT-1300 light freighter"
         starshipDto.passengers = 6
         
-        var starshipDto2 = StarshipDto()
+        let starshipDto2 = StarshipDto()
         starshipDto.name = "Millennium"
         starshipDto.manufacturer = "Corellian Corporation"
         starshipDto.model = "YT-1300"
@@ -52,19 +50,18 @@ class MainScreenPresenter {
         starship.isFavorite = true
         starship2.starship = starshipDto2
         starship2.isFavorite = false
+        //let starshipProtocol: MainScreenModelProtocol = starship
         
-        peopleArray.append(person)
-        peopleArray.append(person2)
-        peopleArray.append(person)
-        starshipArray.append(starship)
-        starshipArray.append(starship2)
-        starshipArray.append(starship2)
-        starshipArray.append(starship)
-        starshipArray.append(starship2)
+        protocolArray.append(person)
+        protocolArray.append(person2)
+        protocolArray.append(person)
+        protocolArray.append(starship)
+        protocolArray.append(starship2)
+        protocolArray.append(starship2)
+        protocolArray.append(starship)
+        protocolArray.append(starship2)
         
-        mainModel.peoples = peopleArray
-        mainModel.starships = starshipArray
-        
+        mainModel.models = protocolArray
         model = mainModel
     }
 }

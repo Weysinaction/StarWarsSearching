@@ -69,27 +69,30 @@ class MainScreenViewController: UIViewController {
 //MARK: -UITableViewDataSource, UITableViewDelegate
 extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let peoplesCount = presenter?.model?.peoples?.count ?? 0
-        let starshipsCount = presenter?.model?.starships?.count ?? 0
-        return peoplesCount + starshipsCount
+        return presenter?.model?.models?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        if indexPath.row < presenter?.model?.peoples?.count ?? 0 {
-            cell = tableView.dequeueReusableCell(withIdentifier: starshipCellIdentifier, for: indexPath)
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: personCellIdentifier, for: indexPath)
+        let cell = UITableViewCell()
+        if let person = presenter?.model?.models?[indexPath.row] as? Person,
+           let cell = tableView.dequeueReusableCell(withIdentifier: personCellIdentifier, for: indexPath) as? PersonCell {
+            cell.updateCell(person: person)
+            return cell
+        } else if let starship = presenter?.model?.models?[indexPath.row] as? Starship,
+           let cell = tableView.dequeueReusableCell(withIdentifier: starshipCellIdentifier, for: indexPath) as? StarshipCell {
+            cell.updateCell(starship: starship)
+            return cell
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let number = indexPath.row % 2
-        switch number {
-            case 0: return 150
-            default: return 120
+        if let person = presenter?.model?.models?[indexPath.row] as? Person {
+           return 120
+        } else if let starship = presenter?.model?.models?[indexPath.row] as? Starship {
+           return 150
         }
+        return 0
     }
 }
 
