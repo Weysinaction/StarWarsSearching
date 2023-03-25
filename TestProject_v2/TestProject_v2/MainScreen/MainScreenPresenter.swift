@@ -9,52 +9,63 @@ import Foundation
 import UIKit
 
 class MainScreenPresenter {
-    var model: MainScreenModel?
+    var models = [MainScreenModelProtocol]()
     weak var viewController: MainScreenViewController?
+    let networkManager = NetworkManager()
     
-    func getPeoples() {
-        let mainModel = MainScreenModel()
-        var protocolArray = [MainScreenModelProtocol]()
-        
-        let person = Entity()
-        let starship = Entity()
-        
-        let peopleDto = PeopleDto()
-        peopleDto.name = "Luke SkyWalker"
-        peopleDto.gender = "Male"
-        
-        let starshipDto = StarshipDto()
-        starshipDto.name = "Millennium Falcon"
-        starshipDto.manufacturer = "Corellian Engineering Corporation"
-        starshipDto.model = "YT-1300 light freighter"
-        starshipDto.passengers = 6
-        
-        person.firstLine = peopleDto.name
-        person.secondLine = peopleDto.gender
-        person.thirdLine = "10"
-        person.entityType = .person
-        
-        starship.firstLine = starshipDto.name
-        starship.secondLine = starshipDto.model
-        starship.thirdLine = starshipDto.manufacturer
-        starship.fourthLine = "\(String(describing: starshipDto.passengers))"
-        starship.entityType = .starship
-        
-        protocolArray.append(starship)
-        protocolArray.append(person)
-        protocolArray.append(person)
-        protocolArray.append(starship)
-        protocolArray.append(starship)
-        protocolArray.append(starship)
-        protocolArray.append(person)
-        protocolArray.append(person)
-        protocolArray.append(starship)
-        protocolArray.append(starship)
-        protocolArray.append(starship)
-        protocolArray.append(person)
-        protocolArray.append(person)
-        
-        mainModel.models = protocolArray
-        model = mainModel
+    func getPeoples(by: String, completion: @escaping () -> Void) {
+        networkManager.getPeoplesBySearch(searchString: by) { [weak self] peoples in
+            guard let peoples = peoples else { return }
+            for people in peoples {
+                var entity = Entity()
+                entity.entityType = .person
+                entity.firstLine = people.name
+                entity.secondLine = people.gender
+                entity.thirdLine = String(people.starships?.count ?? 0)
+                self?.models.append(entity)
+            }
+            completion()
+        }
+    }
+    
+    func getStarships(by: String, completion: @escaping () -> Void) {
+        networkManager.getStarshipsBySearch(searchString: by) { [weak self] starships in
+            guard let starships = starships else { return }
+            for starship in starships {
+                var entity = Entity()
+                entity.entityType = .starship
+                entity.firstLine = starship.name
+                entity.secondLine = starship.model
+                entity.thirdLine = starship.manufacturer
+                entity.fourthLine = starship.passengers
+                self?.models.append(entity)
+            }
+            completion()
+        }
+    }
+    
+    func getData(by: String = "") {
+        clearModels()
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        getPeoples(by: by) {
+            dispatchGroup.leave()
+        }
+        dispatchGroup.enter()
+        getStarships(by: by) {
+            dispatchGroup.leave()
+        }
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.reloadTableView()
+        }
+    }
+    
+    func clearModels() {
+        models = []
+        reloadTableView()
+    }
+    
+    func reloadTableView() {
+        viewController?.reloadTableView()
     }
 }

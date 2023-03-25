@@ -13,7 +13,7 @@ class EntityCell: UITableViewCell {
     var favoriteButton: UIButton?
     var firstLinePlaceholderLabel: UILabel?
     var secondLinePlaceholderLabel: UILabel?
-    var thirLinePlaceholderLabel: UILabel?
+    var thirdLinePlaceholderLabel: UILabel?
     var fourthLinePlaceholderLabel: UILabel?
     var isFavorite = false
     var firstLineLabel: UILabel?
@@ -40,13 +40,20 @@ class EntityCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    override func prepareForReuse() {
-        firstLineLabel?.text = ""
-        secondLineLabel?.text = ""
-        thirdLineLabel?.text = ""
-        fourthLineLabel?.text = ""
-        isFavorite = false
-    }
+//    override func prepareForReuse() {
+//        firstLinePlaceholderLabel?.text = ""
+//        firstLineLabel?.text = ""
+//        secondLinePlaceholderLabel?.text = ""
+//        secondLineLabel?.text = ""
+//        thirdLinePlaceholderLabel?.text = ""
+//        thirdLineLabel?.text = ""
+//        fourthLinePlaceholderLabel?.text = ""
+//        fourthLineLabel?.text = ""
+//        fourthLineLabel?.isHidden = false
+//        fourthLinePlaceholderLabel?.isHidden = false
+//        titleLabel?.text = "Starship"
+//        isFavorite = false
+//    }
     
     //MARK: Setup Methods
     func setupLabels() {
@@ -89,7 +96,7 @@ class EntityCell: UITableViewCell {
         thirdLinePlaceholderLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         thirdLinePlaceholderLabel.text = "Manufacturer:"
         thirdLinePlaceholderLabel.textColor = .systemGray
-        self.thirLinePlaceholderLabel = thirdLinePlaceholderLabel
+        self.thirdLinePlaceholderLabel = thirdLinePlaceholderLabel
         
         let fourthLinePlaceholderLabel = UILabel()
         addSubview(fourthLinePlaceholderLabel)
@@ -149,7 +156,6 @@ class EntityCell: UITableViewCell {
     
     func setupButtons() {
         let favoriteImage = UIImage(named: "heart")
-        let favoriteImagePressed = UIImage(named: "blackHeart")
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.setImage(favoriteImage, for: .normal)
         addSubview(favoriteButton)
@@ -186,20 +192,25 @@ class EntityCell: UITableViewCell {
         thirdLineLabel?.text = entity.thirdLine
         fourthLineLabel?.text = entity.fourthLine
         isFavorite = entity.isFavorite ?? false
-        if entity.entityType == .person {
-            firstLinePlaceholderLabel?.text = "Name:"
-            secondLinePlaceholderLabel?.text = "Gender:"
-            thirLinePlaceholderLabel?.text = "Starships:"
-            titleLabel?.text = "Person"
-            fourthLineLabel?.isHidden = true
-            fourthLinePlaceholderLabel?.isHidden = true
-        }
         if isFavorite {
             let favoriteImage = UIImage(named: "blackHeart")
             favoriteButton?.setImage(favoriteImage, for: .normal)
         } else {
             let notFavoriteImage = UIImage(named: "heart")
             favoriteButton?.setImage(notFavoriteImage, for: .normal)
+        }
+        switch entity.entityType {
+        case .person: secondLinePlaceholderLabel?.text = "Gender:"
+            thirdLinePlaceholderLabel?.text = "Starships:"
+            titleLabel?.text = "Person"
+            fourthLineLabel?.isHidden = true
+            fourthLinePlaceholderLabel?.isHidden = true
+        case .starship: secondLinePlaceholderLabel?.text = "Model:"
+            thirdLinePlaceholderLabel?.text = "Manufacturer:"
+            titleLabel?.text = "Starship"
+            fourthLineLabel?.isHidden = false
+            fourthLinePlaceholderLabel?.isHidden = false
+        default: return
         }
     }
 }

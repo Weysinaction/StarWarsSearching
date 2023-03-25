@@ -23,7 +23,7 @@ class MainScreenViewController: UIViewController {
         title = "MainScreen"
         self.view.backgroundColor = .white
         
-        presenter?.getPeoples()
+        //presenter?.getData(by: "X-wing")
         setupTabBar()
         setupSearchBar()
         setupTableView()
@@ -63,24 +63,28 @@ class MainScreenViewController: UIViewController {
 
         self.searchBar = searchBar
     }
+    
+    func reloadTableView() {
+        tableView?.reloadData()
+    }
 }
 
 //MARK: -UITableViewDataSource, UITableViewDelegate
 extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.model?.models?.count ?? 0
+        return presenter?.models.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: entityCellId, for: indexPath) as? EntityCell,
-              let entity = presenter?.model?.models?[indexPath.row] else { return UITableViewCell() }
+              let entity = presenter?.models[indexPath.row] else { return UITableViewCell() }
         cell.updateCell(entity: entity)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let entity = presenter?.model?.models?[indexPath.row] else { return 0 }
+        guard let entity = presenter?.models[indexPath.row] else { return 0 }
         if entity.entityType == .person {
            return 120
         } else if entity.entityType == .starship  {
@@ -92,5 +96,11 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: -UISearchBarDelegate
 extension MainScreenViewController: UISearchBarDelegate {
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count >= 2 {
+            presenter?.getData(by: searchText)
+        } else {
+            presenter?.clearModels()
+        }
+    }
 }

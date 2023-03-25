@@ -21,12 +21,12 @@ protocol MainScreenModelProtocol {
     var isFavorite: Bool? { get set }
 }
 
-class MainScreenModel {
+struct MainScreenModel {
     var models: [MainScreenModelProtocol]?
     
 }
 
-class Entity: MainScreenModelProtocol {
+struct Entity: MainScreenModelProtocol {
     var firstLine: String?
     var secondLine: String?
     var thirdLine: String?
@@ -36,30 +36,30 @@ class Entity: MainScreenModelProtocol {
 }
 
 //MARK: Dto
-class PeoplesDto {
+struct PeoplesDto: Codable {
     var count: Int?
     var next: String?
     var previous: String?
     var results: [PeopleDto]?
 }
 
-class PeopleDto {
+struct PeopleDto: Codable {
     var name: String?
     var gender: String?
     var films: [String]?
     var starships: [String]?
 }
 
-class StarshipsDto {
+struct StarshipsDto: Codable {
     var count: Int?
     var next: String?
     var previous: String?
     var results: [StarshipDto]?
 }
 
-class StarshipDto {
+struct StarshipDto: Codable {
     var name: String?
     var model: String?
     var manufacturer: String?
-    var passengers: Int?
+    var passengers: String?
 }
