@@ -12,7 +12,7 @@ class FavoritesScreenModule {
     public static func build() -> UIViewController {
         let viewController = FavoritesScreenViewController()
         let presenter = FavoritesPresenter()
-        let model = FavoritesModel()
+        let model = FavoritesModel.shared
         
         viewController.presenter = presenter
         presenter.model = model

@@ -12,7 +12,7 @@ class MainScreenModule {
     public static func build() -> UIViewController {
         let viewController = MainScreenViewController()
         let presenter = MainScreenPresenter()
-        let models = [MainScreenModelProtocol]()
+        let models = [Entity]()
         
         viewController.presenter = presenter
         presenter.models = models

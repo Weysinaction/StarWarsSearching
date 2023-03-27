@@ -19,18 +19,27 @@ class MainScreenViewController: UIViewController {
         setupViewController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.refreshData()
+    }
+    
     func setupViewController() {
         title = "MainScreen"
         self.view.backgroundColor = .white
-        
-        //presenter?.getData(by: "X-wing")
+    
         setupTabBar()
         setupSearchBar()
         setupTableView()
+        setupGestureToDismissKeyboard()
+    }
+    
+    func setupGestureToDismissKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     func setupTabBar() {
-        //let searchImage = UIImage(named: "search")?.withRenderingMode(.alwaysTemplate)
         let tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         self.tabBarItem = tabBarItem
     }
@@ -60,12 +69,13 @@ class MainScreenViewController: UIViewController {
         searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 75).isActive = true
         searchBar.placeholder = "Search"
-
+        searchBar.keyboardType = .default
         self.searchBar = searchBar
     }
     
-    func reloadTableView() {
-        tableView?.reloadData()
+    //MARK: Selector
+    @objc func dismissKeyboard() {
+        searchBar?.endEditing(true)
     }
 }
 
@@ -96,11 +106,11 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: -UISearchBarDelegate
 extension MainScreenViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count >= 2 {
-            presenter?.getData(by: searchText)
-        } else {
-            presenter?.clearModels()
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchString = searchBar.text else { return }
+        if searchString.count >= 2 {
+            presenter?.getData(by: searchString)
+            searchBar.resignFirstResponder()
         }
     }
 }

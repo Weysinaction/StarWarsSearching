@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class MainScreenPresenter {
-    var models = [MainScreenModelProtocol]()
+    var models = [Entity]()
     weak var viewController: MainScreenViewController?
     let networkManager = NetworkManager()
     
@@ -56,16 +56,42 @@ class MainScreenPresenter {
             dispatchGroup.leave()
         }
         dispatchGroup.notify(queue: .main) { [weak self] in
-            self?.reloadTableView()
+            self?.refreshData()
         }
+    }
+    
+    func setFavorites() {
+        models = models.map { entity in
+            if isFavorite(entity: entity) {
+                var newEntity = entity
+                newEntity.isFavorite = true
+                return newEntity
+            } else {
+                var newEntity = entity
+                newEntity.isFavorite = false
+                return newEntity
+            }
+        }
+    }
+    
+    func isFavorite(entity: Entity) -> Bool {
+        var isFavorite = false
+        let model = FavoritesModel.shared
+        model.favoriteModels.forEach { currentEntity in
+            if currentEntity.firstLine == entity.firstLine {
+                isFavorite = true
+            }
+        }
+        return isFavorite
     }
     
     func clearModels() {
         models = []
-        reloadTableView()
+        refreshData()
     }
     
-    func reloadTableView() {
-        viewController?.reloadTableView()
+    func refreshData() {
+        setFavorites()
+        viewController?.tableView?.reloadData()
     }
 }

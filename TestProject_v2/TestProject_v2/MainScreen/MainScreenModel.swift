@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum EntityType {
+enum EntityType: Codable {
     case person
     case starship
 }
@@ -21,12 +21,7 @@ protocol MainScreenModelProtocol {
     var isFavorite: Bool? { get set }
 }
 
-struct MainScreenModel {
-    var models: [MainScreenModelProtocol]?
-    
-}
-
-struct Entity: MainScreenModelProtocol {
+struct Entity: MainScreenModelProtocol, Codable {
     var firstLine: String?
     var secondLine: String?
     var thirdLine: String?

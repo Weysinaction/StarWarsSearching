@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol EntityCellDelegate {
+    func deleteRow(index: Int)
+}
+
 class EntityCell: UITableViewCell {
     var titleLabel: UILabel?
     var cellImageView: UIImageView?
@@ -20,6 +24,8 @@ class EntityCell: UITableViewCell {
     var secondLineLabel: UILabel?
     var thirdLineLabel: UILabel?
     var fourthLineLabel: UILabel?
+    var entity: Entity?
+    var delegate: EntityCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +33,7 @@ class EntityCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.setupImageView()
         self.setupLabels()
         self.setupButtons()
@@ -40,25 +47,10 @@ class EntityCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-//    override func prepareForReuse() {
-//        firstLinePlaceholderLabel?.text = ""
-//        firstLineLabel?.text = ""
-//        secondLinePlaceholderLabel?.text = ""
-//        secondLineLabel?.text = ""
-//        thirdLinePlaceholderLabel?.text = ""
-//        thirdLineLabel?.text = ""
-//        fourthLinePlaceholderLabel?.text = ""
-//        fourthLineLabel?.text = ""
-//        fourthLineLabel?.isHidden = false
-//        fourthLinePlaceholderLabel?.isHidden = false
-//        titleLabel?.text = "Starship"
-//        isFavorite = false
-//    }
-    
     //MARK: Setup Methods
     func setupLabels() {
         let titleLabel = UILabel()
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: cellImageView?.trailingAnchor ?? self.leadingAnchor, constant: 5).isActive = true
@@ -69,7 +61,7 @@ class EntityCell: UITableViewCell {
         self.titleLabel = titleLabel
         
         let firstLinePlaceholderLabel = UILabel()
-        addSubview(firstLinePlaceholderLabel)
+        contentView.addSubview(firstLinePlaceholderLabel)
         firstLinePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         firstLinePlaceholderLabel.topAnchor.constraint(equalTo: cellImageView?.bottomAnchor ?? self.topAnchor, constant: 5).isActive = true
         firstLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
@@ -79,7 +71,7 @@ class EntityCell: UITableViewCell {
         self.firstLinePlaceholderLabel = firstLinePlaceholderLabel
         
         let secondLinePlaceholderLabel = UILabel()
-        addSubview(secondLinePlaceholderLabel)
+        contentView.addSubview(secondLinePlaceholderLabel)
         secondLinePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         secondLinePlaceholderLabel.topAnchor.constraint(equalTo: firstLinePlaceholderLabel.bottomAnchor, constant: 5).isActive = true
         secondLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
@@ -89,7 +81,7 @@ class EntityCell: UITableViewCell {
         self.secondLinePlaceholderLabel = secondLinePlaceholderLabel
         
         let thirdLinePlaceholderLabel = UILabel()
-        addSubview(thirdLinePlaceholderLabel)
+        contentView.addSubview(thirdLinePlaceholderLabel)
         thirdLinePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         thirdLinePlaceholderLabel.topAnchor.constraint(equalTo: secondLinePlaceholderLabel.bottomAnchor, constant: 5).isActive = true
         thirdLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
@@ -99,7 +91,7 @@ class EntityCell: UITableViewCell {
         self.thirdLinePlaceholderLabel = thirdLinePlaceholderLabel
         
         let fourthLinePlaceholderLabel = UILabel()
-        addSubview(fourthLinePlaceholderLabel)
+        contentView.addSubview(fourthLinePlaceholderLabel)
         fourthLinePlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         fourthLinePlaceholderLabel.topAnchor.constraint(equalTo: thirdLinePlaceholderLabel.bottomAnchor, constant: 5).isActive = true
         fourthLinePlaceholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
@@ -109,7 +101,7 @@ class EntityCell: UITableViewCell {
         self.fourthLinePlaceholderLabel = fourthLinePlaceholderLabel
         
         let firstLineLabel = UILabel()
-        addSubview(firstLineLabel)
+        contentView.addSubview(firstLineLabel)
         firstLineLabel.translatesAutoresizingMaskIntoConstraints = false
         firstLineLabel.topAnchor.constraint(equalTo: firstLinePlaceholderLabel.topAnchor).isActive = true
         firstLineLabel.leadingAnchor.constraint(equalTo: firstLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
@@ -117,7 +109,7 @@ class EntityCell: UITableViewCell {
         self.firstLineLabel = firstLineLabel
         
         let secondLineLabel = UILabel()
-        addSubview(secondLineLabel)
+        contentView.addSubview(secondLineLabel)
         secondLineLabel.translatesAutoresizingMaskIntoConstraints = false
         secondLineLabel.topAnchor.constraint(equalTo: firstLineLabel.bottomAnchor, constant: 5).isActive = true
         secondLineLabel.leadingAnchor.constraint(equalTo: secondLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
@@ -125,7 +117,7 @@ class EntityCell: UITableViewCell {
         self.secondLineLabel = secondLineLabel
         
         let thirdLineLabel = UILabel()
-        addSubview(thirdLineLabel)
+        contentView.addSubview(thirdLineLabel)
         thirdLineLabel.translatesAutoresizingMaskIntoConstraints = false
         thirdLineLabel.topAnchor.constraint(equalTo: secondLineLabel.bottomAnchor, constant: 5).isActive = true
         thirdLineLabel.leadingAnchor.constraint(equalTo: thirdLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
@@ -133,7 +125,7 @@ class EntityCell: UITableViewCell {
         self.thirdLineLabel = thirdLineLabel
         
         let fourthLineLabel = UILabel()
-        addSubview(fourthLineLabel)
+        contentView.addSubview(fourthLineLabel)
         fourthLineLabel.translatesAutoresizingMaskIntoConstraints = false
         fourthLineLabel.topAnchor.constraint(equalTo: thirdLineLabel.bottomAnchor, constant: 5).isActive = true
         fourthLineLabel.leadingAnchor.constraint(equalTo: fourthLinePlaceholderLabel.trailingAnchor, constant: 5).isActive = true
@@ -144,7 +136,7 @@ class EntityCell: UITableViewCell {
     func setupImageView() {
         let image = UIImage(named: "starship")
         let cellImageView = UIImageView(image: image)
-        addSubview(cellImageView)
+        contentView.addSubview(cellImageView)
         cellImageView.translatesAutoresizingMaskIntoConstraints = false
         cellImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         cellImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20).isActive = true
@@ -158,7 +150,7 @@ class EntityCell: UITableViewCell {
         let favoriteImage = UIImage(named: "heart")
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.setImage(favoriteImage, for: .normal)
-        addSubview(favoriteButton)
+        contentView.addSubview(favoriteButton)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 7).isActive = true
         favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
@@ -166,8 +158,7 @@ class EntityCell: UITableViewCell {
         favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         favoriteButton.backgroundColor = .clear
         favoriteButton.contentMode = .scaleToFill
-        favoriteButton.isUserInteractionEnabled = true
-        favoriteButton.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchDown)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
         self.favoriteButton = favoriteButton
     }
 
@@ -181,12 +172,8 @@ class EntityCell: UITableViewCell {
         }
     }
     
-    //MARK: Selectors
-    @objc func favoriteButtonPressed(sender: UIButton) {
-        //toggleFavorite()
-    }
-    
-    func updateCell(entity: MainScreenModelProtocol) {
+    func updateCell(entity: Entity) {
+        self.entity = entity
         firstLineLabel?.text = entity.firstLine
         secondLineLabel?.text = entity.secondLine
         thirdLineLabel?.text = entity.thirdLine
@@ -203,14 +190,44 @@ class EntityCell: UITableViewCell {
         case .person: secondLinePlaceholderLabel?.text = "Gender:"
             thirdLinePlaceholderLabel?.text = "Starships:"
             titleLabel?.text = "Person"
+            cellImageView?.image = UIImage(named: "person")
             fourthLineLabel?.isHidden = true
             fourthLinePlaceholderLabel?.isHidden = true
         case .starship: secondLinePlaceholderLabel?.text = "Model:"
             thirdLinePlaceholderLabel?.text = "Manufacturer:"
             titleLabel?.text = "Starship"
+            cellImageView?.image = UIImage(named: "starship")
             fourthLineLabel?.isHidden = false
             fourthLinePlaceholderLabel?.isHidden = false
         default: return
         }
+    }
+    
+    //MARK: Selectors
+    @objc func favoriteButtonPressed(sender: UIButton) {
+        if isFavorite {
+            deleteFromFavorite(entity: entity)
+        } else {
+            addToFavorite(entity: entity)
+        }
+        toggleFavorite()
+    }
+    
+    func addToFavorite(entity: MainScreenModelProtocol?) {
+        guard var entity = entity as? Entity  else { return }
+        let model = FavoritesModel.shared
+        entity.isFavorite = true
+        model.favoriteModels.append(entity)
+    }
+    
+    func deleteFromFavorite(entity: MainScreenModelProtocol?) {
+        guard let entity = entity as? Entity else { return }
+        let model = FavoritesModel.shared
+        let deleteIndex = model.favoriteModels.firstIndex(where: { currentEntity in
+            currentEntity.firstLine == entity.firstLine
+        })
+        guard let deleteIndex = deleteIndex else { return }
+        model.favoriteModels.remove(at: deleteIndex)
+        delegate?.deleteRow(index: deleteIndex)
     }
 }

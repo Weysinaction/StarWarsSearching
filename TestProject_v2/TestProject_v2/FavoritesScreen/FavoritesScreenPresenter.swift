@@ -10,4 +10,6 @@ import Foundation
 class FavoritesPresenter {
     var model: FavoritesModel?
     weak var viewController: FavoritesScreenViewController?
+    
+    
 }

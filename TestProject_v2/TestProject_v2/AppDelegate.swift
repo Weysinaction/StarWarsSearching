@@ -14,6 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {        
         
+        let userDefaults = UserDefaults()
+        let favoriteScreenModel = FavoritesModel.shared
+        if let data = userDefaults.value(forKey: "favoriteModels") as? Data,
+           let favoriteModels = try? PropertyListDecoder().decode(Array<Entity>.self, from: data) {
+            favoriteScreenModel.favoriteModels = favoriteModels
+        }
+        
         return true
     }
 
