@@ -1,5 +1,5 @@
 //
-//  MainScreenModule.swift
+//  FavoritesScreenModule.swift
 //  TestProject_v2
 //
 //  Created by Dima Lazarev on 22.03.2023.
@@ -8,14 +8,15 @@
 import Foundation
 import UIKit
 
-class MainScreenModule {
+final class FavoritesScreenModule {
+    //MARK: - Public methods
     public static func build() -> UIViewController {
-        let viewController = MainScreenViewController()
-        let presenter = MainScreenPresenter()
-        let models = [Entity]()
+        let viewController = FavoritesScreenViewController()
+        let presenter = FavoritesPresenter()
+        let model = FavoritesModel.shared
         
         viewController.presenter = presenter
-        presenter.models = models
+        presenter.model = model
         presenter.viewController = viewController
         
         return viewController

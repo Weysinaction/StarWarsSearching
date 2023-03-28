@@ -7,9 +7,8 @@
 
 import Foundation
 
-class FavoritesPresenter {
+final class FavoritesPresenter {
+    //MARK: - Public properties
     var model: FavoritesModel?
     weak var viewController: FavoritesScreenViewController?
-    
-    
 }

@@ -12,25 +12,34 @@ protocol EntityCellDelegate {
 }
 
 class EntityCell: UITableViewCell {
-    var titleLabel: UILabel?
-    var cellImageView: UIImageView?
-    var favoriteButton: UIButton?
-    var firstLinePlaceholderLabel: UILabel?
-    var secondLinePlaceholderLabel: UILabel?
-    var thirdLinePlaceholderLabel: UILabel?
-    var fourthLinePlaceholderLabel: UILabel?
-    var isFavorite = false
-    var firstLineLabel: UILabel?
-    var secondLineLabel: UILabel?
-    var thirdLineLabel: UILabel?
-    var fourthLineLabel: UILabel?
-    var entity: Entity?
+    //MARK: - Public properties
     var delegate: EntityCellDelegate?
+    
+    //MARK: - Private properties
+    private var titleLabel: UILabel?
+    private var cellImageView: UIImageView?
+    private var favoriteButton: UIButton?
+    private var firstLinePlaceholderLabel: UILabel?
+    private var secondLinePlaceholderLabel: UILabel?
+    private var thirdLinePlaceholderLabel: UILabel?
+    private var fourthLinePlaceholderLabel: UILabel?
+    private var isFavorite = false
+    private var firstLineLabel: UILabel?
+    private var secondLineLabel: UILabel?
+    private var thirdLineLabel: UILabel?
+    private var fourthLineLabel: UILabel?
+    private var entity: Entity?
 
+    //MARK: - EntityCell
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    //MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -43,12 +52,40 @@ class EntityCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    //MARK: - Public methods
+    func updateCell(entity: Entity) {
+        self.entity = entity
+        firstLineLabel?.text = entity.firstLine
+        secondLineLabel?.text = entity.secondLine
+        thirdLineLabel?.text = entity.thirdLine
+        fourthLineLabel?.text = entity.fourthLine
+        isFavorite = entity.isFavorite ?? false
+        if isFavorite {
+            let favoriteImage = UIImage(named: "blackHeart")
+            favoriteButton?.setImage(favoriteImage, for: .normal)
+        } else {
+            let notFavoriteImage = UIImage(named: "heart")
+            favoriteButton?.setImage(notFavoriteImage, for: .normal)
+        }
+        switch entity.entityType {
+        case .person: secondLinePlaceholderLabel?.text = "Gender:"
+            thirdLinePlaceholderLabel?.text = "Starships:"
+            titleLabel?.text = "Person"
+            cellImageView?.image = UIImage(named: "person")
+            fourthLineLabel?.isHidden = true
+            fourthLinePlaceholderLabel?.isHidden = true
+        case .starship: secondLinePlaceholderLabel?.text = "Model:"
+            thirdLinePlaceholderLabel?.text = "Manufacturer:"
+            titleLabel?.text = "Starship"
+            cellImageView?.image = UIImage(named: "starship")
+            fourthLineLabel?.isHidden = false
+            fourthLinePlaceholderLabel?.isHidden = false
+        default: return
+        }
     }
     
-    //MARK: Setup Methods
-    func setupLabels() {
+    //MARK: - Private methods
+    private func setupLabels() {
         let titleLabel = UILabel()
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -133,7 +170,7 @@ class EntityCell: UITableViewCell {
         self.fourthLineLabel = fourthLineLabel
     }
     
-    func setupImageView() {
+    private func setupImageView() {
         let image = UIImage(named: "starship")
         let cellImageView = UIImageView(image: image)
         contentView.addSubview(cellImageView)
@@ -146,7 +183,7 @@ class EntityCell: UITableViewCell {
         self.cellImageView = cellImageView
     }
     
-    func setupButtons() {
+    private func setupButtons() {
         let favoriteImage = UIImage(named: "heart")
         let favoriteButton = UIButton(frame: .zero)
         favoriteButton.setImage(favoriteImage, for: .normal)
@@ -162,7 +199,7 @@ class EntityCell: UITableViewCell {
         self.favoriteButton = favoriteButton
     }
 
-    func toggleFavorite() {
+    private func toggleFavorite() {
         let favoriteImage = UIImage(named: "heart")
         let favoriteImagePressed = UIImage(named: "blackHeart")
         isFavorite = !isFavorite
@@ -172,35 +209,22 @@ class EntityCell: UITableViewCell {
         }
     }
     
-    func updateCell(entity: Entity) {
-        self.entity = entity
-        firstLineLabel?.text = entity.firstLine
-        secondLineLabel?.text = entity.secondLine
-        thirdLineLabel?.text = entity.thirdLine
-        fourthLineLabel?.text = entity.fourthLine
-        isFavorite = entity.isFavorite ?? false
-        if isFavorite {
-            let favoriteImage = UIImage(named: "blackHeart")
-            favoriteButton?.setImage(favoriteImage, for: .normal)
-        } else {
-            let notFavoriteImage = UIImage(named: "heart")
-            favoriteButton?.setImage(notFavoriteImage, for: .normal)
-        }
-        switch entity.entityType {
-        case .person: secondLinePlaceholderLabel?.text = "Gender:"
-            thirdLinePlaceholderLabel?.text = "Starships:"
-            titleLabel?.text = "Person"
-            cellImageView?.image = UIImage(named: "person")
-            fourthLineLabel?.isHidden = true
-            fourthLinePlaceholderLabel?.isHidden = true
-        case .starship: secondLinePlaceholderLabel?.text = "Model:"
-            thirdLinePlaceholderLabel?.text = "Manufacturer:"
-            titleLabel?.text = "Starship"
-            cellImageView?.image = UIImage(named: "starship")
-            fourthLineLabel?.isHidden = false
-            fourthLinePlaceholderLabel?.isHidden = false
-        default: return
-        }
+    private func addToFavorite(entity: MainScreenModelProtocol?) {
+        guard var entity = entity as? Entity  else { return }
+        let model = FavoritesModel.shared
+        entity.isFavorite = true
+        model.favoriteModels.append(entity)
+    }
+    
+    private func deleteFromFavorite(entity: MainScreenModelProtocol?) {
+        guard let entity = entity as? Entity else { return }
+        let model = FavoritesModel.shared
+        let deleteIndex = model.favoriteModels.firstIndex(where: { currentEntity in
+            currentEntity.firstLine == entity.firstLine
+        })
+        guard let deleteIndex = deleteIndex else { return }
+        model.favoriteModels.remove(at: deleteIndex)
+        delegate?.deleteRow(index: deleteIndex)
     }
     
     //MARK: Selectors
@@ -211,23 +235,5 @@ class EntityCell: UITableViewCell {
             addToFavorite(entity: entity)
         }
         toggleFavorite()
-    }
-    
-    func addToFavorite(entity: MainScreenModelProtocol?) {
-        guard var entity = entity as? Entity  else { return }
-        let model = FavoritesModel.shared
-        entity.isFavorite = true
-        model.favoriteModels.append(entity)
-    }
-    
-    func deleteFromFavorite(entity: MainScreenModelProtocol?) {
-        guard let entity = entity as? Entity else { return }
-        let model = FavoritesModel.shared
-        let deleteIndex = model.favoriteModels.firstIndex(where: { currentEntity in
-            currentEntity.firstLine == entity.firstLine
-        })
-        guard let deleteIndex = deleteIndex else { return }
-        model.favoriteModels.remove(at: deleteIndex)
-        delegate?.deleteRow(index: deleteIndex)
     }
 }

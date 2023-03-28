@@ -13,7 +13,7 @@
 		018B9B5829CB2EB900894B5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018B9B5629CB2EB900894B5E /* Main.storyboard */; };
 		018B9B5A29CB2EBA00894B5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 018B9B5929CB2EBA00894B5E /* Assets.xcassets */; };
 		018B9B5D29CB2EBA00894B5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018B9B5B29CB2EBA00894B5E /* LaunchScreen.storyboard */; };
-		018B9B6829CB2EBA00894B5E /* TestProject_v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B6729CB2EBA00894B5E /* TestProject_v2Tests.swift */; };
+		018B9B6829CB2EBA00894B5E /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B6729CB2EBA00894B5E /* NetworkManagerTests.swift */; };
 		018B9B7229CB2EBA00894B5E /* TestProject_v2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B7129CB2EBA00894B5E /* TestProject_v2UITests.swift */; };
 		018B9B7429CB2EBA00894B5E /* TestProject_v2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B7329CB2EBA00894B5E /* TestProject_v2UITestsLaunchTests.swift */; };
 		018B9B8329CB2F0A00894B5E /* FavoritesScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9B8229CB2F0A00894B5E /* FavoritesScreenPresenter.swift */; };
@@ -32,7 +32,7 @@
 		018B9BA229CB809200894B5E /* abosanovabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9BA129CB809200894B5E /* abosanovabold.ttf */; };
 		018B9BA329CB809200894B5E /* abosanovabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9BA129CB809200894B5E /* abosanovabold.ttf */; };
 		018B9BA429CB809200894B5E /* abosanovabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 018B9BA129CB809200894B5E /* abosanovabold.ttf */; };
-		018B9BA729CCBCB100894B5E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 018B9BA629CCBCB100894B5E /* Alamofire */; };
+		018B9BAC29D2EDD300894B5E /* NetworkManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018B9BAB29D2EDD300894B5E /* NetworkManagerMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,7 @@
 		018B9B5C29CB2EBA00894B5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		018B9B5E29CB2EBA00894B5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		018B9B6329CB2EBA00894B5E /* TestProject_v2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestProject_v2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		018B9B6729CB2EBA00894B5E /* TestProject_v2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProject_v2Tests.swift; sourceTree = "<group>"; };
+		018B9B6729CB2EBA00894B5E /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		018B9B6D29CB2EBA00894B5E /* TestProject_v2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestProject_v2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		018B9B7129CB2EBA00894B5E /* TestProject_v2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProject_v2UITests.swift; sourceTree = "<group>"; };
 		018B9B7329CB2EBA00894B5E /* TestProject_v2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProject_v2UITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -78,6 +78,7 @@
 		018B9B9A29CB724900894B5E /* EntityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCell.swift; sourceTree = "<group>"; };
 		018B9B9D29CB807B00894B5E /* abosanova.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = abosanova.ttf; sourceTree = "<group>"; };
 		018B9BA129CB809200894B5E /* abosanovabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = abosanovabold.ttf; sourceTree = "<group>"; };
+		018B9BAB29D2EDD300894B5E /* NetworkManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				018B9BA729CCBCB100894B5E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,9 +129,8 @@
 		018B9B4F29CB2EB900894B5E /* TestProject_v2 */ = {
 			isa = PBXGroup;
 			children = (
+				018B9BA829D2228F00894B5E /* Modules */,
 				018B9B8E29CB2FF200894B5E /* NetworkLayer */,
-				018B9B8129CB2EE400894B5E /* FavoritesScreen */,
-				018B9B8029CB2ECC00894B5E /* MainScreen */,
 				018B9B9C29CB804500894B5E /* Fonts */,
 				018B9B5029CB2EB900894B5E /* AppDelegate.swift */,
 				018B9B5229CB2EB900894B5E /* SceneDelegate.swift */,
@@ -147,7 +146,7 @@
 		018B9B6629CB2EBA00894B5E /* TestProject_v2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				018B9B6729CB2EBA00894B5E /* TestProject_v2Tests.swift */,
+				018B9BA929D2EDA400894B5E /* NetworkManagerTests */,
 			);
 			path = TestProject_v2Tests;
 			sourceTree = "<group>";
@@ -209,6 +208,32 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		018B9BA829D2228F00894B5E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				018B9B8029CB2ECC00894B5E /* MainScreen */,
+				018B9B8129CB2EE400894B5E /* FavoritesScreen */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		018B9BA929D2EDA400894B5E /* NetworkManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				018B9BAA29D2EDB200894B5E /* Mocks */,
+				018B9B6729CB2EBA00894B5E /* NetworkManagerTests.swift */,
+			);
+			path = NetworkManagerTests;
+			sourceTree = "<group>";
+		};
+		018B9BAA29D2EDB200894B5E /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				018B9BAB29D2EDD300894B5E /* NetworkManagerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -226,7 +251,6 @@
 			);
 			name = TestProject_v2;
 			packageProductDependencies = (
-				018B9BA629CCBCB100894B5E /* Alamofire */,
 			);
 			productName = TestProject_v2;
 			productReference = 018B9B4D29CB2EB900894B5E /* TestProject_v2.app */;
@@ -301,7 +325,6 @@
 			);
 			mainGroup = 018B9B4429CB2EB900894B5E;
 			packageReferences = (
-				018B9BA529CCBCB100894B5E /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 018B9B4E29CB2EB900894B5E /* Products */;
 			projectDirPath = "";
@@ -372,7 +395,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				018B9B6829CB2EBA00894B5E /* TestProject_v2Tests.swift in Sources */,
+				018B9BAC29D2EDD300894B5E /* NetworkManagerMock.swift in Sources */,
+				018B9B6829CB2EBA00894B5E /* NetworkManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,25 +724,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		018B9BA529CCBCB100894B5E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		018B9BA629CCBCB100894B5E /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 018B9BA529CCBCB100894B5E /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 018B9B4529CB2EB900894B5E /* Project object */;
 }

@@ -7,12 +7,15 @@
 
 import UIKit
 
-class FavoritesScreenViewController: UIViewController {
+final class FavoritesScreenViewController: UIViewController {
+    //MARK: - Public properties
     var presenter: FavoritesPresenter?
     var tableView: UITableView?
-    let entityCellId = "EntityCell"
+    
+    //MARK: - Private properties
+    private let entityCellId = "EntityCell"
 
-    // MARK: FavoriteScreenViewController
+    // MARK: - FavoriteScreenViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
@@ -22,7 +25,9 @@ class FavoritesScreenViewController: UIViewController {
         tableView?.reloadData()
     }
     
-    func setupViewController() {
+    //MARK: - Private methods
+    
+    private func setupViewController() {
         title = "Favorites"
         self.view.backgroundColor = .white
         
@@ -30,11 +35,11 @@ class FavoritesScreenViewController: UIViewController {
         setupTableView()
     }
     
-    func setupTabBar() {
+    private func setupTabBar() {
         tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         let tableView = UITableView()
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +54,7 @@ class FavoritesScreenViewController: UIViewController {
     }
 }
 
-//MARK: UITableViewDataSource, UITableViewDelegate
+//MARK: - UITableViewDataSource, UITableViewDelegate
 extension FavoritesScreenViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter?.model?.favoriteModels.count ?? 0
@@ -75,6 +80,7 @@ extension FavoritesScreenViewController: UITableViewDelegate, UITableViewDataSou
     }
 }
 
+//MARK: - EntityCellDelegate
 extension FavoritesScreenViewController: EntityCellDelegate {
     func deleteRow(index: Int) {
         let indexPath = IndexPath(row: index, section: 0)

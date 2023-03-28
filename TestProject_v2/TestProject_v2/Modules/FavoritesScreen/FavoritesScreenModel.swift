@@ -7,8 +7,11 @@
 
 import Foundation
 
-class FavoritesModel {
+final class FavoritesModel {
+    //MARK: - Public properties
     static let shared = FavoritesModel()
+    
+    //MARK: - Private properties
     private var models = [Entity]()
     private var userDefaults = UserDefaults()
     var favoriteModels: [Entity] {
@@ -21,5 +24,6 @@ class FavoritesModel {
         }
     }
     
+    //MARK: - Initializers
     private init() {}
 }

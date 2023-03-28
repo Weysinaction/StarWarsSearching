@@ -8,8 +8,17 @@
 import Foundation
 import UIKit
 
-class NetworkManager {
-    func getPeoplesBySearch(searchString: String = "", completion: @escaping (([PeopleDto]?) -> Void)) {
+public protocol PublicProt {
+    
+}
+protocol NetworkManagerProtocol {
+    func getPeoplesBySearch(searchString: String, completion: @escaping (([PeopleDto]?) -> Void))
+    func getStarshipsBySearch(searchString: String, completion: @escaping (([StarshipDto]?) -> Void))
+}
+
+final class NetworkManager: NetworkManagerProtocol {
+    //MARK: - Public methods
+    func getPeoplesBySearch(searchString: String, completion: @escaping (([PeopleDto]?) -> Void)) {
         guard let url = URL(string: "https://swapi.dev/api/people/?search=\(searchString)") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -21,7 +30,7 @@ class NetworkManager {
         task.resume()
     }
     
-    func getStarshipsBySearch(searchString: String = "", completion: @escaping (([StarshipDto]?) -> Void)) {
+    func getStarshipsBySearch(searchString: String, completion: @escaping (([StarshipDto]?) -> Void)) {
         guard let url = URL(string: "https://swapi.dev/api/starships/?search=\(searchString)") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

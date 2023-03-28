@@ -7,11 +7,14 @@
 
 import UIKit
 
-class MainScreenViewController: UIViewController {
+final class MainScreenViewController: UIViewController {
+    //MARK: - Public properties
     var presenter: MainScreenPresenter?
-    var searchBar: UISearchBar?
-    var tableView: UITableView?
-    let entityCellId = "EntityCell"
+    
+    //MARK: - Private properties
+    private var searchBar: UISearchBar?
+    private let entityCellId = "EntityCell"
+    private var tableView: UITableView?
 
     // MARK: MainScreenViewController
     override func viewDidLoad() {
@@ -23,7 +26,13 @@ class MainScreenViewController: UIViewController {
         presenter?.refreshData()
     }
     
-    func setupViewController() {
+    //MARK: - Public methods
+    func reloadTableViewData() {
+        tableView?.reloadData()
+    }
+    
+    //MARK: - Private methods
+    private func setupViewController() {
         title = "MainScreen"
         self.view.backgroundColor = .white
     
@@ -33,18 +42,18 @@ class MainScreenViewController: UIViewController {
         setupGestureToDismissKeyboard()
     }
     
-    func setupGestureToDismissKeyboard() {
+    private func setupGestureToDismissKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
-    func setupTabBar() {
+    private func setupTabBar() {
         let tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         self.tabBarItem = tabBarItem
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         let tableView = UITableView()
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +68,7 @@ class MainScreenViewController: UIViewController {
         self.tableView = tableView
     }
     
-    func setupSearchBar() {
+    private func setupSearchBar() {
         let searchBar = UISearchBar()
         searchBar.delegate = self
         view.addSubview(searchBar)
@@ -73,13 +82,13 @@ class MainScreenViewController: UIViewController {
         self.searchBar = searchBar
     }
     
-    //MARK: Selector
+    //MARK: Selectors
     @objc func dismissKeyboard() {
         searchBar?.endEditing(true)
     }
 }
 
-//MARK: -UITableViewDataSource, UITableViewDelegate
+//MARK: - UITableViewDataSource, UITableViewDelegate
 extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.models.count ?? 0
@@ -104,7 +113,7 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//MARK: -UISearchBarDelegate
+//MARK: - UISearchBarDelegate
 extension MainScreenViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchString = searchBar.text else { return }

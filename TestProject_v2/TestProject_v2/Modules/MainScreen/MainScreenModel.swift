@@ -30,7 +30,7 @@ struct Entity: MainScreenModelProtocol, Codable {
     var entityType: EntityType?
 }
 
-//MARK: Dto
+//MARK: - Dto models
 struct PeoplesDto: Codable {
     var count: Int?
     var next: String?

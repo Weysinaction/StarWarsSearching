@@ -8,40 +8,23 @@
 import Foundation
 import UIKit
 
-class MainScreenPresenter {
+final class MainScreenPresenter {
+    //MARK: - Public properties
     var models = [Entity]()
     weak var viewController: MainScreenViewController?
-    let networkManager = NetworkManager()
     
-    func getPeoples(by: String, completion: @escaping () -> Void) {
-        networkManager.getPeoplesBySearch(searchString: by) { [weak self] peoples in
-            guard let peoples = peoples else { return }
-            for people in peoples {
-                var entity = Entity()
-                entity.entityType = .person
-                entity.firstLine = people.name
-                entity.secondLine = people.gender
-                entity.thirdLine = String(people.starships?.count ?? 0)
-                self?.models.append(entity)
-            }
-            completion()
-        }
+    //MARK: - Private properties
+    private let networkManager: NetworkManagerProtocol!
+    
+    //MARK: - Initializers
+    init(networkManager: NetworkManagerProtocol) {
+        self.networkManager = networkManager
     }
     
-    func getStarships(by: String, completion: @escaping () -> Void) {
-        networkManager.getStarshipsBySearch(searchString: by) { [weak self] starships in
-            guard let starships = starships else { return }
-            for starship in starships {
-                var entity = Entity()
-                entity.entityType = .starship
-                entity.firstLine = starship.name
-                entity.secondLine = starship.model
-                entity.thirdLine = starship.manufacturer
-                entity.fourthLine = starship.passengers
-                self?.models.append(entity)
-            }
-            completion()
-        }
+    //MARK: - Public methods
+    func refreshData() {
+        setFavorites()
+        viewController?.reloadTableViewData()
     }
     
     func getData(by: String = "") {
@@ -60,7 +43,39 @@ class MainScreenPresenter {
         }
     }
     
-    func setFavorites() {
+    //MARK: - Private methods
+    private func getPeoples(by: String, completion: @escaping () -> Void) {
+        networkManager.getPeoplesBySearch(searchString: by) { [weak self] peoples in
+            guard let peoples = peoples else { return }
+            for people in peoples {
+                var entity = Entity()
+                entity.entityType = .person
+                entity.firstLine = people.name
+                entity.secondLine = people.gender
+                entity.thirdLine = String(people.starships?.count ?? 0)
+                self?.models.append(entity)
+            }
+            completion()
+        }
+    }
+    
+    private func getStarships(by: String, completion: @escaping () -> Void) {
+        networkManager.getStarshipsBySearch(searchString: by) { [weak self] starships in
+            guard let starships = starships else { return }
+            for starship in starships {
+                var entity = Entity()
+                entity.entityType = .starship
+                entity.firstLine = starship.name
+                entity.secondLine = starship.model
+                entity.thirdLine = starship.manufacturer
+                entity.fourthLine = starship.passengers
+                self?.models.append(entity)
+            }
+            completion()
+        }
+    }
+    
+    private func setFavorites() {
         models = models.map { entity in
             if isFavorite(entity: entity) {
                 var newEntity = entity
@@ -74,7 +89,7 @@ class MainScreenPresenter {
         }
     }
     
-    func isFavorite(entity: Entity) -> Bool {
+    private func isFavorite(entity: Entity) -> Bool {
         var isFavorite = false
         let model = FavoritesModel.shared
         model.favoriteModels.forEach { currentEntity in
@@ -85,13 +100,8 @@ class MainScreenPresenter {
         return isFavorite
     }
     
-    func clearModels() {
+    private func clearModels() {
         models = []
         refreshData()
-    }
-    
-    func refreshData() {
-        setFavorites()
-        viewController?.tableView?.reloadData()
     }
 }
